@@ -1,0 +1,23 @@
+{
+  "name": "4.1-backend",
+  "version": "0.0.1",
+  "description": "backend of exercise 4.1",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "watch": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Julio David",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "mongoose": "^5.8.0",
+    "mongoose-unique-validator": "^2.0.3",
+    "morgan": "^1.9.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.1"
+  }
+}
