@@ -1,3 +1,4 @@
+require('dotenv').config()
 const http = require('http')
 const express = require('express')
 const app = express()
@@ -28,7 +29,7 @@ blogSchema.plugin(uniqueValidator)
 
 const Blog = mongoose.model('Blog', blogSchema)
 
-const mongoUrl = 'your url here'
+const mongoUrl = process.env.MONGODB_URI
 
 mongoose.connect(mongoUrl, { useNewUrlParser: true })
 .then(response => {
@@ -129,7 +130,7 @@ const errorHandler = (error, req, res, next) => {
 
 app.use(errorHandler)
 
-const PORT = 3003
+const PORT = process.env.PORT || 3003
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`)
 })
