@@ -1,29 +1,17 @@
-require('dotenv').config()
 const http = require('http')
 const express = require('express')
 const app = express()
 const cors = require('cors')
 const bodyParser = require('body-parser')
-const morgan = require('morgan')
 const Blog = require('./models/blog')
+const middleware = require('./utils/middleware')
+const config = require('./utils/config')
 
 app.use(express.static('build'))
 app.use(bodyParser.json())
 app.use(cors())
  
-
-morgan.token('body', function (req, res) { return JSON.stringify(req.body) })
-
-app.use(morgan(function (tokens, req, res) {
-  return [
-    tokens.method(req, res),
-    tokens.url(req, res),
-    tokens.status(req, res),
-    tokens.res(req, res, 'content-length'), '-',
-    tokens['response-time'](req, res), 'ms',
-    tokens.body(req,res)
-  ].join(' ')
-}))
+app.use(middleware.morganMiddleware)
 
 // ----------------- ROUTE HANDLERS --------------------
 
@@ -82,26 +70,10 @@ app.put('/api/blogs/:id', (req, res, next) => {
   .catch(error => next(error))
 })
 
-const unknownEndpoint = (req, res) => {
-  res.status(404).send({ error: 'unknown endpoint' })
-}
+app.use(middleware.unknownEndpoint)
+app.use(middleware.errorHandler)
 
-app.use(unknownEndpoint)
-
-const errorHandler = (error, req, res, next) => {
-  console.log(error)
-  if(error.name === 'CastError' && error.kind === 'ObjectId'){
-    return res.status(400).send({error: 'malformatted id'})
-  }else if (error.name === 'ValidationError'){
-    return res.status(400).send({ error:error.message })
-  }
-
-  next(error)
-}
-
-app.use(errorHandler)
-
-const PORT = process.env.PORT || 3003
+const PORT = config.PORT || 3003
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`)
 })
