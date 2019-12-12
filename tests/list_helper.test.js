@@ -62,10 +62,14 @@ const listWithOneBlog = [
   }
 ]
 
+// --------------- DUMMY TEST --------------
+
 test('Dummy test', () => {
   const result = listhelper.dummy(blogs)
   expect(result).toBe(1)
 })
+
+// --------------- TOTAL LIKES TEST ---------------
 
 describe('Total likes', () => {
 
@@ -84,6 +88,8 @@ describe('Total likes', () => {
     expect(result).toBe(36)
   })
 })
+
+// --------------- MOST LIKED TEST ---------------
 
 describe('Most liked', () => {
 
@@ -108,5 +114,23 @@ describe('Most liked', () => {
       likes: 12,
       __v: 0
     })
+  })
+})
+
+describe('Most blogs', () => {
+
+  test('when list is empty, author with most blogs is undefined', () => {
+    const result = listhelper.mostBlogs([{}])
+    expect(result).toEqual({author: undefined, blogs: 1})
+  })
+
+  test('when list only has one blog, equals itself the author and 1 blog', () => {
+    const result = listhelper.mostBlogs(listWithOneBlog)
+    expect(result).toEqual({author: "Edsger W. Dijkstra", blogs: 1})
+  })
+
+  test('when list has multiple blogs, author with most blogs is correctly found', () => {
+    const result = listhelper.mostBlogs(blogs)
+    expect(result).toEqual({author: "Robert C. Martin", blogs: 3})
   })
 })
