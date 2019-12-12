@@ -36,6 +36,8 @@ const mostBlogs = (blogs) => {
   const reducer = (mostBlogs, nextBlog) => {
     if(nextBlog.blogs > mostBlogs.blogs){
       return nextBlog
+    }else{
+      return mostBlogs
     }
   }
 
