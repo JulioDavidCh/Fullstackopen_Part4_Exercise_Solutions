@@ -4,14 +4,7 @@ const uniqueValidator = require('mongoose-unique-validator')
 
 const mongoUrl = config.MONGODB_URI
 
-console.log('connecting to :', mongoUrl)
-
 mongoose.set('useFindAndModify', false)
-
-mongoose.connect(mongoUrl, { useNewUrlParser: true })
-.then(response => {
-  console.log('connected to mongodb !')
-})
 
 const blogSchema = mongoose.Schema({
   title: {type: String, required: true, minlength: 3},
