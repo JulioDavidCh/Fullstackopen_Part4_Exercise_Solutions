@@ -117,6 +117,8 @@ describe('Most liked', () => {
   })
 })
 
+// --------------- MOST BLOGS TESTS ---------------
+
 describe('Most blogs', () => {
 
   test('when list is empty, author with most blogs is undefined', () => {
@@ -132,5 +134,25 @@ describe('Most blogs', () => {
   test('when list has multiple blogs, author with most blogs is correctly found', () => {
     const result = listhelper.mostBlogs(blogs)
     expect(result).toEqual({author: "Robert C. Martin", blogs: 3})
+  })
+})
+
+// --------------- AUTHOR MOST LIKED ---------------
+
+describe('Most liked author', () => {
+
+  test('when list is empty, most liked author is undefined', () => {
+    const result = listhelper.mostLikedAuthor([{}])
+    expect(result).toEqual({author: undefined, likes: undefined})
+  })
+
+  test('when list has one blog, most liked author is that entry', () => {
+    const result = listhelper.mostLikedAuthor(listWithOneBlog)
+    expect(result).toEqual({author: "Edsger W. Dijkstra", likes: 5})
+  })
+
+  test('when list has multiple entries, most liked author is correctly found', () => {
+    const result = listhelper.mostLikedAuthor(blogs)
+    expect(result).toEqual({author: "Edsger W. Dijkstra", likes: 17})
   })
 })

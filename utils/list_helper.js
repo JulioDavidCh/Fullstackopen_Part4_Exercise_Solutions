@@ -42,9 +42,36 @@ const mostBlogs = (blogs) => {
   return authorList.reduce(reducer)
 }
 
+const mostLikedAuthor = (blogs) => {
+  const authorList = []
+  for(blog of blogs){
+    let blogExists = false
+    for(let i = 0; i<authorList.length; i++){
+      if(authorList[i].author === blog.author){
+        blogExists = true
+        authorList[i].likes += blog.likes
+      }
+    }
+    if(!blogExists){
+      authorList.push({author: blog.author, likes: blog.likes})
+    }
+  }
+
+  const reducer = (mostLiked, nextBlog) => {
+    if(nextBlog.likes > mostLiked.likes){
+      return nextBlog
+    }else{
+      return mostLiked
+    }
+  }
+
+  return authorList.reduce(reducer)
+}
+
 module.exports = {
   dummy,
   totalLikes,
   mostLikes,
-  mostBlogs
+  mostBlogs,
+  mostLikedAuthor
 }
