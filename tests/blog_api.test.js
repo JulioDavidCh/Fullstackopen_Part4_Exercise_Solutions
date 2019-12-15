@@ -71,6 +71,17 @@ test('if the likes property of a post request is missing, it will default 0', as
   expect(afterBlogs[3].likes).toBe(0)
 })
 
+test('if the request title or url are missing, the response status code is 400', async () =>{
+  const newBlogToAdd = {
+    author: "test3"
+  }
+
+  await api
+  .post('/api/blogs')
+  .send(newBlogToAdd)
+  .expect(400)
+})
+
 afterAll(() => {
   mongoose.connection.close()
 })
