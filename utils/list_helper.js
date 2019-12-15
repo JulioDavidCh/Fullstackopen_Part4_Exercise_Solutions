@@ -44,7 +44,7 @@ const mostBlogs = (blogs) => {
 
 const mostLikedAuthor = (blogs) => {
   const authorList = []
-  for(blog of blogs){
+  for(let blog of blogs){
     let blogExists = false
     for(let i = 0; i<authorList.length; i++){
       if(authorList[i].author === blog.author){

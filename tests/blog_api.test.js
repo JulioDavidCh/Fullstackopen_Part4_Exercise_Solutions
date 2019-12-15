@@ -15,7 +15,7 @@ test('blogs are returned as json', async () => {
 
 test('blogs unique identifier is id', async() => {
   const blogs = await api.get('/api/blogs')
-  for(blog of blogs.body){
+  for(let blog of blogs.body){
     expect(blog.id).toBeDefined()
   }
 })
@@ -23,3 +23,15 @@ test('blogs unique identifier is id', async() => {
 afterAll(() => {
   mongoose.connection.close()
 })
+
+const countNumbers = (numberArray) => {
+  let numbersFound = 0;
+  for(let value of numberArray){
+    if(typeof value === 'number') continue
+    if(value.trim('') === '') continue
+    if(Number.isNaN(Number(value))) continue
+    numbersFound++
+  }
+  console.log(numbersFound)
+  return numbersFound
+}
