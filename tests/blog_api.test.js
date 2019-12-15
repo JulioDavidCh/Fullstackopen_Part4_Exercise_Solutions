@@ -11,7 +11,9 @@ const api = supertest(app)
 beforeEach(async () =>{
   await Blog.deleteMany({})
 
-  for(let blog of helper.blogsInDB){
+  const blogs = helper.initialBlogs
+
+  for(let blog of blogs){
     let newBlog = new Blog(blog)
     await newBlog.save()
   }
@@ -32,7 +34,7 @@ test('blogs unique identifier is id', async() => {
 })
 
 test('a blog is sucessfully added to the database', async () =>{
-  const initialBlogs = await helper.initialBlogs()
+  const initialBlogs = helper.initialBlogs
 
   const newBlogToAdd = {
     title: "test3",
@@ -46,7 +48,7 @@ test('a blog is sucessfully added to the database', async () =>{
     .expect(201)
     .expect('content-type', /application\/json/)
   
-  const afterBlogs = await helper.initialBlogs()
+  const afterBlogs = await helper.blogsInDB()
 
   expect(afterBlogs.length).toBe(initialBlogs.length + 1)
 })
@@ -54,15 +56,3 @@ test('a blog is sucessfully added to the database', async () =>{
 afterAll(() => {
   mongoose.connection.close()
 })
-
-const countNumbers = (numberArray) => {
-  let numbersFound = 0;
-  for(let value of numberArray){
-    if(typeof value === 'number') continue
-    if(value.trim('') === '') continue
-    if(Number.isNaN(Number(value))) continue
-    numbersFound++
-  }
-  console.log(numbersFound)
-  return numbersFound
-}
