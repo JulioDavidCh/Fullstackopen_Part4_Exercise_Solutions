@@ -5,13 +5,9 @@ const Blog = require('../models/blog')
 //   res.send('<h1>Hello World!</h1>')
 // })
   
-blogRouter.get('/', (req, res) => {
-  Blog
-    .find({})
-    .then(blogs => {
-      res.json(blogs.map(entry => entry.toJSON()))
-    })
-    
+blogRouter.get('/', async (req, res) => {
+  const blogs = await Blog.find({})
+  res.json(blogs.map(entry => entry.toJSON()))
 })
 
 blogRouter.post('/', (req, res, next) => {
