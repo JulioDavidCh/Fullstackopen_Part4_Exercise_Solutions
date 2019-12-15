@@ -1,4 +1,4 @@
-// The mongoose library is only imported to closse our connection to the database
+// The mongoose library is only imported to close our connection to the database
 const mongoose = require('mongoose')
 const supertest = require('supertest')
 const app = require('../app')
@@ -11,6 +11,13 @@ test('blogs are returned as json', async () => {
     .get('/api/blogs')
     .expect(200)
     .expect('content-type', /application\/json/)
+})
+
+test('blogs unique identifier is id', async() => {
+  const blogs = await api.get('/api/blogs')
+  for(blog of blogs.body){
+    expect(blog.id).toBeDefined()
+  }
 })
 
 afterAll(() => {
