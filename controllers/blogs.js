@@ -11,14 +11,20 @@ blogRouter.get('/', async (req, res) => {
 })
 
 blogRouter.post('/', (req, res, next) => {
-console.log(req.body)
-const blog = new Blog(req.body)
-blog
-  .save()
-  .then(result => {
-    res.status(201).json(result)
-  })
-  .catch(error => next(error))
+  const newBlogToAdd = {
+    title: req.body.title,
+    author: req.body.author,
+    url: req.body.url,
+    likes: req.body.likes || 0
+  }
+
+  const blog = new Blog(newBlogToAdd)
+  blog
+    .save()
+    .then(result => {
+      res.status(201).json(result)
+    })
+    .catch(error => next(error))
 })
 
 blogRouter.delete('/:id', (req, res, next) => {
