@@ -2,9 +2,20 @@
 const mongoose = require('mongoose')
 const supertest = require('supertest')
 const app = require('../app')
+const helper = require('../utils/blog_api_helper')
+const Blog = require('../models/blog')
 
 // We use supertest to wrap our express app
 const api = supertest(app)
+
+beforeEach(async () =>{
+  await Blog.deleteMany({})
+
+  for(let blog of helper.blogsInDB){
+    let newBlog = new Blog(blog)
+    await newBlog.save()
+  }
+})
 
 test('blogs are returned as json', async () => {
   await api
@@ -18,6 +29,26 @@ test('blogs unique identifier is id', async() => {
   for(let blog of blogs.body){
     expect(blog.id).toBeDefined()
   }
+})
+
+test('a blog is sucessfully added to the database', async () =>{
+  const initialBlogs = await helper.initialBlogs()
+
+  const newBlogToAdd = {
+    title: "test3",
+    author: "test3",
+    url: "test3"
+  }
+
+  await api
+    .post('/api/blogs')
+    .send(newBlogToAdd)
+    .expect(201)
+    .expect('content-type', /application\/json/)
+  
+  const afterBlogs = await helper.initialBlogs()
+
+  expect(afterBlogs.length).toBe(initialBlogs.length + 1)
 })
 
 afterAll(() => {
