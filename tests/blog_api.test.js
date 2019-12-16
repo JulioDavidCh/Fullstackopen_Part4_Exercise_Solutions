@@ -82,6 +82,22 @@ test('if the request title or url are missing, the response status code is 400',
   .expect(400)
 })
 
+test('a blog is sucessfully deleted from the database', async () => {
+  const initialBlogs = helper.initialBlogs
+  const blogsInDB = await helper.blogsInDB()
+  const blogToDelete = blogsInDB[0]
+
+  await api
+    .delete(`/api/blogs/${blogToDelete.id}`)
+    .expect(204)
+  
+  const afterDeleteBlogs = await helper.blogsInDB()
+
+  expect(afterDeleteBlogs.length).toBe(initialBlogs.length - 1)
+
+  expect(afterDeleteBlogs).not.toContain(blogToDelete.url)
+})
+
 afterAll(() => {
   mongoose.connection.close()
 })
