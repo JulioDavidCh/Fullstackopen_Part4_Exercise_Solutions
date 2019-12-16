@@ -98,6 +98,22 @@ test('a blog is sucessfully deleted from the database', async () => {
   expect(afterDeleteBlogs).not.toContain(blogToDelete.url)
 })
 
+test('a blog that exist gets its likes updated successfully', async () => {
+  const blogsInDB = await helper.blogsInDB()
+  const blogToUpdate = blogsInDB[0]
+
+  blogToUpdate.likes = blogToUpdate.likes + 1
+
+  const updatedBlog = 
+    await api
+      .put(`/api/blogs/${blogToUpdate.id}`)
+      .send(blogToUpdate)
+      .expect(200)
+      .expect('content-type', /application\/json/)
+
+  expect(updatedBlog.body.likes).toBe(blogToUpdate.likes)
+})
+
 afterAll(() => {
   mongoose.connection.close()
 })
