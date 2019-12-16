@@ -56,7 +56,7 @@ blogRouter.put('/:id', async (req, res, next) => {
   try{
     const id = req.params.id
     const body = req.body
-  
+
     const newBlog = {
       title: body.title,
       author: body.author,
@@ -66,7 +66,7 @@ blogRouter.put('/:id', async (req, res, next) => {
   
     const updatedBlog = await Blog.findByIdAndUpdate(id, newBlog, { new: true })
 
-    res.json(updatedBlog.toJSON).end
+    res.json(updatedBlog.toJSON()).end
   }catch(error){
     next(error)
   }
