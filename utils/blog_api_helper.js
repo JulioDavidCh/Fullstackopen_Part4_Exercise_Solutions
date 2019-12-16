@@ -4,17 +4,20 @@ const initialBlogs = [
   {
     title: "test",
     author: "test",
-    url: "test"
+    url: "test",
+    likes: 0
   },
   {
     title: "test1",
     author: "test1",
-    url: "test1"
+    url: "test1",
+    likes: 0
   },
   {
     title: "test2",
     author: "test2",
-    url: "test2"
+    url: "test2",
+    likes: 0
   },
 ]
 
