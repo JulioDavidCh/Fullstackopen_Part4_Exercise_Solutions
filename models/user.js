@@ -7,9 +7,14 @@ const mongoUrl = config.MONGODB_URI
 mongoose.set('useFindAndModify', false)
 
 const userSchema = mongoose.Schema({
-  username: {type: String, unique: true},
+  username: {
+    type: String,
+    unique: true,
+    required: true,
+    minlength: 3
+  },
   name: String,
-  passwordHash: String
+  passwordHash: {type: String, required: true}
 })
 
 userSchema.set('toJSON', {
