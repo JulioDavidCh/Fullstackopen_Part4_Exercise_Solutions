@@ -114,6 +114,67 @@ test('a blog that exist gets its likes updated successfully', async () => {
   expect(updatedBlog.body.likes).toBe(blogToUpdate.likes)
 })
 
+describe('For request with validation errors', () => {
+
+  test('wont add a request with missing password', async () => {
+    const newUser = {
+      "username": "gab",
+      "name": "julio"
+    }
+
+    await api
+      .post('/api/users')
+      .send(newUser)
+      .expect(400)
+      .expect('content-type', /application\/json/)
+
+  })
+
+  test('wont add a request with password shorter than 3 characters', async () => {
+    const newUser = {
+      "username": "gab",
+      "name": "julio",
+      "password": "12"
+    }
+
+    await api
+      .post('/api/users')
+      .send(newUser)
+      .expect(400)
+      .expect('content-type', /application\/json/)
+      
+  })
+
+  test('wont add a request with missing username', async () => {
+    const newUser = {
+      "name": "julio",
+      "password": "1234"
+    }
+
+    await api
+      .post('/api/users')
+      .send(newUser)
+      .expect(400)
+      .expect('content-type', /application\/json/)
+
+  })
+
+  test('wont add a request with username shorter than 3 characters', async () => {
+    const newUser = {
+      "username": "ga",
+      "name": "julio",
+      "password": "1234"
+    }
+
+    await api
+      .post('/api/users')
+      .send(newUser)
+      .expect(400)
+      .expect('content-type', /application\/json/)
+      
+  })
+})
+
 afterAll(() => {
   mongoose.connection.close()
 })
