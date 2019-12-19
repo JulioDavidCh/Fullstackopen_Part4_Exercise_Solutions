@@ -6,6 +6,7 @@ const bodyParser = require('body-parser')
 const middleware = require('./utils/middleware')
 const blogRouter = require('./controllers/blogs')
 const mongoose = require('mongoose')
+const userRouter = require('./controllers/users')
 
 console.log('connecting to', config.MONGODB_URI)
 
@@ -22,6 +23,7 @@ app.use(express.static('build'))
 app.use(bodyParser.json())
 app.use(middleware.morganMiddleware)
 
+app.use('/api/users', userRouter)
 app.use('/api/blogs', blogRouter)
 
 app.use(middleware.unknownEndpoint)
