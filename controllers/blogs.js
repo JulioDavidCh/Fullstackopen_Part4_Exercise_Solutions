@@ -18,7 +18,7 @@ blogRouter.post('/', async (req, res, next) => {
   try{
     const body = req.body
 
-    const userInDb = await User.findById(body.userId)
+    let userInDb = await User.findById(body.userId)
   
     const newBlogToAdd = {
       title: body.title,
