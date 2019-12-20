@@ -1,0 +1,9 @@
+post http://localhost:3003/api/blogs
+Content-Type: application/json
+
+{
+  "title": "probando1",
+  "author": "probando1",
+  "url": "probando1",
+  "userId": "5dfcd853da466138accb26bd"
+}
