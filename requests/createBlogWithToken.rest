@@ -1,9 +1,9 @@
 post http://localhost:3003/api/blogs
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImdhYiIsImlkIjoiNWRmY2Q4NTNkYTQ2NjEzOGFjY2IyNmJkIiwiaWF0IjoxNTc2ODc2NTY0fQ.xavCI-CtB93L65CILxQ48nWhgLecaECQc0a86QG8El8
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImdhYiIsImlkIjoiNWRmY2Q4NTNkYTQ2NjEzOGFjY2IyNmJkIiwiaWF0IjoxNTc2ODg2NjMzfQ.CmSBDvVIo4ubNoP4paq0XDCo9_Pnk4FeF-mSmVGuPbs
 
 {
-  "title": "probando211",
-  "author": "probando211",
-  "url": "probando211"
+  "title": "probando2111",
+  "author": "probando2111",
+  "url": "probando2111"
 }
